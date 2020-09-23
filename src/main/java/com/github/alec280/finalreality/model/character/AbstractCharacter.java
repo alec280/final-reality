@@ -1,8 +1,9 @@
-package com.github.cc3002.finalreality.model.character;
+package com.github.alec280.finalreality.model.character;
 
-import com.github.cc3002.finalreality.model.character.player.CharacterClass;
-import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
-import com.github.cc3002.finalreality.model.weapon.Weapon;
+import com.github.alec280.finalreality.model.character.player.CharacterClass;
+import com.github.alec280.finalreality.model.character.player.PlayerCharacter;
+import com.github.alec280.finalreality.model.weapon.Weapon;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -20,7 +21,7 @@ public abstract class AbstractCharacter implements ICharacter {
   protected final BlockingQueue<ICharacter> turnsQueue;
   protected final String name;
   private final CharacterClass characterClass;
-  private Weapon equippedWeapon = null;
+  protected Weapon equippedWeapon = null;
   private ScheduledExecutorService scheduledExecutor;
 
   protected AbstractCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
@@ -57,11 +58,7 @@ public abstract class AbstractCharacter implements ICharacter {
   }
 
   @Override
-  public void equip(Weapon weapon) {
-    if (this instanceof PlayerCharacter) {
-      this.equippedWeapon = weapon;
-    }
-  }
+  public void equip(Weapon weapon) { }
 
   @Override
   public Weapon getEquippedWeapon() {

@@ -1,6 +1,7 @@
-package com.github.cc3002.finalreality.model.character;
+package com.github.alec280.finalreality.model.character;
 
-import com.github.cc3002.finalreality.model.character.player.CharacterClass;
+import com.github.alec280.finalreality.model.character.player.CharacterClass;
+
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import org.jetbrains.annotations.NotNull;

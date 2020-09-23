@@ -1,7 +1,7 @@
-package com.github.cc3002.finalreality.model.character;
+package com.github.alec280.finalreality.model.character;
 
-import com.github.cc3002.finalreality.model.character.player.CharacterClass;
-import com.github.cc3002.finalreality.model.weapon.Weapon;
+import com.github.alec280.finalreality.model.character.player.CharacterClass;
+import com.github.alec280.finalreality.model.weapon.Weapon;
 
 /**
  * This represents a character from the game.
