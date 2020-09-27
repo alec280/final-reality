@@ -1,4 +1,4 @@
-package com.github.cc3002.finalreality.model.weapon;
+package com.github.alec280.finalreality.model.weapon;
 
 /**
  * Enumeration of all the weapon types.

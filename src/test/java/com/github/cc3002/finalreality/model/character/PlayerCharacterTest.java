@@ -4,8 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.github.cc3002.finalreality.model.character.player.CharacterClass;
-import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
+import com.github.alec280.finalreality.model.character.Enemy;
+import com.github.alec280.finalreality.model.character.player.CharacterClass;
+import com.github.alec280.finalreality.model.character.player.PlayerCharacter;
 import java.util.EnumMap;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,7 +46,7 @@ class PlayerCharacterTest extends AbstractCharacterTest {
     for (var characterClass :
         characterNames.keySet()) {
       testCharacters.add(
-          new PlayerCharacter(characterNames.get(characterClass), turns, characterClass));
+          new PlayerCharacter(characterNames.get(characterClass), 5, 3, characterClass, turns));
     }
   }
 
@@ -54,17 +55,17 @@ class PlayerCharacterTest extends AbstractCharacterTest {
    */
   @Test
   void constructorTest() {
-    var enemy = new Enemy("Enemy", 10, turns);
+    var enemy = new Enemy("Enemy", 5, 3, 3,10, turns);
     for (var character :
         testCharacters) {
       var characterClass = character.getCharacterClass();
       var characterName = characterNames.get(characterClass);
-      checkConstruction(new PlayerCharacter(characterName, turns, characterClass),
+      checkConstruction(new PlayerCharacter(characterName, 5, 3, characterClass, turns),
           character,
-          new PlayerCharacter("Test", turns, characterClass),
-          new PlayerCharacter(characterName, turns,
+          new PlayerCharacter("Test", 5, 3, characterClass, turns),
+          new PlayerCharacter(characterName, 5, 3,
               characterClass == CharacterClass.THIEF ? CharacterClass.BLACK_MAGE
-                  : CharacterClass.THIEF));
+                  : CharacterClass.THIEF, turns));
       assertNotEquals(character, enemy);
     }
 
@@ -74,9 +75,12 @@ class PlayerCharacterTest extends AbstractCharacterTest {
   void equipWeaponTest() {
     for (var character :
         testCharacters) {
-      assertNull(character.getEquippedWeapon());
-      character.equip(testWeapon);
-      assertEquals(testWeapon, character.getEquippedWeapon());
+      if (character.canEquip(testWeapon)) {
+        final PlayerCharacter player = (PlayerCharacter) character;
+        assertNull(player.getEquippedWeapon());
+        player.equip(testWeapon);
+        assertEquals(testWeapon, player.getEquippedWeapon());
+      }
     }
   }
 }

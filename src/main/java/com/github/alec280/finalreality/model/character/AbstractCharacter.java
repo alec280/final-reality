@@ -1,8 +1,8 @@
-package com.github.cc3002.finalreality.model.character;
+package com.github.alec280.finalreality.model.character;
 
-import com.github.cc3002.finalreality.model.character.player.CharacterClass;
-import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
-import com.github.cc3002.finalreality.model.weapon.Weapon;
+import com.github.alec280.finalreality.model.character.player.CharacterClass;
+import com.github.alec280.finalreality.model.weapon.Weapon;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -18,29 +18,28 @@ import org.jetbrains.annotations.NotNull;
 public abstract class AbstractCharacter implements ICharacter {
 
   protected final BlockingQueue<ICharacter> turnsQueue;
-  protected final String name;
   private final CharacterClass characterClass;
-  private Weapon equippedWeapon = null;
   private ScheduledExecutorService scheduledExecutor;
 
+  protected final String name;
+  protected final int maxHealth;
+  protected final int defense;
+  protected int health;
+
   protected AbstractCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
-      @NotNull String name, CharacterClass characterClass) {
+      CharacterClass characterClass, @NotNull String name, final int maxHealth, final int defense) {
     this.turnsQueue = turnsQueue;
     this.name = name;
+    this.maxHealth = maxHealth;
+    this.health = maxHealth;
+    this.defense = defense;
     this.characterClass = characterClass;
   }
 
   @Override
   public void waitTurn() {
     scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-    if (this instanceof PlayerCharacter) {
-      scheduledExecutor
-          .schedule(this::addToQueue, equippedWeapon.getWeight() / 10, TimeUnit.SECONDS);
-    } else {
-      var enemy = (Enemy) this;
-      scheduledExecutor
-          .schedule(this::addToQueue, enemy.getWeight() / 10, TimeUnit.SECONDS);
-    }
+    scheduledExecutor.schedule(this::addToQueue, getWeight() / 10, TimeUnit.SECONDS);
   }
 
   /**
@@ -52,21 +51,25 @@ public abstract class AbstractCharacter implements ICharacter {
   }
 
   @Override
-  public String getName() {
-    return name;
-  }
+  public String getName() { return name; }
 
   @Override
-  public void equip(Weapon weapon) {
-    if (this instanceof PlayerCharacter) {
-      this.equippedWeapon = weapon;
-    }
-  }
+  public int getMaxHealth() { return maxHealth; }
 
   @Override
-  public Weapon getEquippedWeapon() {
-    return equippedWeapon;
-  }
+  public int getHealth() { return health; }
+
+  @Override
+  public int getDefense() { return defense; }
+
+  @Override
+  public int getDamage() { return 0; }
+
+  @Override
+  public int getWeight() { return 10; }
+
+  @Override
+  public boolean canEquip(Weapon weapon) { return false; }
 
   @Override
   public CharacterClass getCharacterClass() {
