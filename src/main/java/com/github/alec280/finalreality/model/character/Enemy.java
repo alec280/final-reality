@@ -14,21 +14,26 @@ import org.jetbrains.annotations.NotNull;
  */
 public class Enemy extends AbstractCharacter {
 
+  private final int damage;
   private final int weight;
 
   /**
-   * Creates a new enemy with a name, a weight and the queue with the characters ready to
-   * play.
+   * Creates a new enemy with a name, damage, weight and the queue with the
+   * characters ready to play.
    */
-  public Enemy(@NotNull final String name, final int weight,
-      @NotNull final BlockingQueue<ICharacter> turnsQueue) {
-    super(turnsQueue, name, CharacterClass.ENEMY);
+  public Enemy(@NotNull final String name, final int maxHealth, final int defense, final int damage,
+      final int weight, @NotNull final BlockingQueue<ICharacter> turnsQueue) {
+    super(turnsQueue, CharacterClass.ENEMY, name, maxHealth, defense);
+    this.damage = damage;
     this.weight = weight;
   }
 
-  /**
-   * Returns the weight of this enemy.
-   */
+  @Override
+  public int getDamage() {
+    return damage;
+  }
+
+  @Override
   public int getWeight() {
     return weight;
   }
@@ -42,11 +47,12 @@ public class Enemy extends AbstractCharacter {
       return false;
     }
     final Enemy enemy = (Enemy) o;
-    return getWeight() == enemy.getWeight();
+    return getDamage() == enemy.getDamage() &&
+      getWeight() == enemy.getWeight();
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getWeight());
+    return Objects.hash(getDamage(), getWeight());
   }
 }

@@ -48,9 +48,7 @@ public abstract class AbstractCharacterTest {
     }
   }
 
-  private void tryToEquip(ICharacter character) {
-    character.equip(testWeapon);
-  }
+  private void tryToEquip(ICharacter character) { character.canEquip(testWeapon); }
 
   protected void checkConstruction(final ICharacter expectedCharacter,
       final ICharacter testEqualCharacter,

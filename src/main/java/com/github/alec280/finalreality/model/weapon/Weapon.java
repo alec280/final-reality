@@ -28,11 +28,11 @@ public class Weapon {
     this.type = type;
   }
 
-  private String getName() {
+  protected String getName() {
     return name;
   }
 
-  private int getDamage() {
+  public int getDamage() {
     return damage;
   }
 
@@ -40,7 +40,7 @@ public class Weapon {
     return weight;
   }
 
-  private WeaponType getType() {
+  public WeaponType getType() {
     return type;
   }
 

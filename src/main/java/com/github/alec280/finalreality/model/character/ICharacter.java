@@ -24,14 +24,34 @@ public interface ICharacter {
   String getName();
 
   /**
-   * Equips a weapon to the character.
+   * Returns this character's maximum health.
    */
-  void equip(Weapon weapon);
+  int getMaxHealth();
 
   /**
-   * Return this character's equipped weapon.
+   * Returns this character's current health.
    */
-  Weapon getEquippedWeapon();
+  int getHealth();
+
+  /**
+   * Returns this character's defense.
+   */
+  int getDefense();
+
+  /**
+   * Returns this character's damage.
+   */
+  int getDamage();
+
+  /**
+   * Returns this character's weight.
+   */
+  int getWeight();
+
+  /**
+   * Returns true if this character can be equipped with a weapon.
+   */
+  boolean canEquip(Weapon weapon);
 
   /**
    * Returns this character's class.
