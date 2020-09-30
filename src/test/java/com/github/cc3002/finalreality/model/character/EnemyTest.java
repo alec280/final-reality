@@ -1,8 +1,7 @@
 package com.github.cc3002.finalreality.model.character;
 
 import com.github.alec280.finalreality.model.character.Enemy;
-import com.github.alec280.finalreality.model.character.player.CharacterClass;
-import com.github.alec280.finalreality.model.character.player.PlayerCharacter;
+import com.github.alec280.finalreality.model.character.player.Thief;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +19,7 @@ class EnemyTest extends AbstractCharacterTest {
   void constructorTest() {
     checkConstruction(new Enemy(ENEMY_NAME, 5, 3, 3, 10, turns),
         testCharacters.get(0),
-        new Enemy(ENEMY_NAME, 4, 2, 2,11, turns),
-        new PlayerCharacter(ENEMY_NAME, 4, 2, CharacterClass.THIEF, turns));
+        new Enemy("Hobgoblin", 5, 3, 3,10, turns),
+        new Thief(ENEMY_NAME, 5, 3, turns));
   }
 }
