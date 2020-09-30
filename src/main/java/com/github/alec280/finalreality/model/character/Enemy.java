@@ -1,8 +1,5 @@
 package com.github.alec280.finalreality.model.character;
 
-import com.github.alec280.finalreality.model.character.player.CharacterClass;
-
-import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
  * A class that holds all the information of a single enemy of the game.
  *
  * @author Ignacio Slater Muñoz
- * @author <Your name>
+ * @author Alexander Cuevas.
  */
 public class Enemy extends AbstractCharacter {
 
@@ -18,12 +15,24 @@ public class Enemy extends AbstractCharacter {
   private final int weight;
 
   /**
-   * Creates a new enemy with a name, damage, weight and the queue with the
-   * characters ready to play.
+   * Creates a new Enemy character.
+   *
+   * @param name
+   *     the enemy's name
+   * @param maxHealth
+   *     the enemy's maximum health
+   * @param defense
+   *     the enemy's defense
+   * @param damage
+   *     the enemy's damage
+   * @param weight
+   *     the enemy's weight
+   * @param turnsQueue
+   *     the queue with the characters waiting for their turn
    */
   public Enemy(@NotNull final String name, final int maxHealth, final int defense, final int damage,
       final int weight, @NotNull final BlockingQueue<ICharacter> turnsQueue) {
-    super(turnsQueue, CharacterClass.ENEMY, name, maxHealth, defense);
+    super(name, maxHealth, defense, CharacterClass.ENEMY, turnsQueue);
     this.damage = damage;
     this.weight = weight;
   }
@@ -47,12 +56,7 @@ public class Enemy extends AbstractCharacter {
       return false;
     }
     final Enemy enemy = (Enemy) o;
-    return getDamage() == enemy.getDamage() &&
-      getWeight() == enemy.getWeight();
+    return getName().equals(enemy.getName());
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(getDamage(), getWeight());
-  }
 }

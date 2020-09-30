@@ -1,14 +1,13 @@
 package com.github.alec280.finalreality.model.character;
 
-import com.github.alec280.finalreality.model.character.player.CharacterClass;
-import com.github.alec280.finalreality.model.weapon.Weapon;
+import com.github.alec280.finalreality.model.weapon.IWeapon;
 
 /**
  * This represents a character from the game.
  * A character can be controlled by the player or by the CPU (an enemy).
  *
- * @author Ignacio Slater Muñoz.
- * @author <Your name>
+ * @author Ignacio Slater Muñoz
+ * @author Alexander Cuevas.
  */
 public interface ICharacter {
 
@@ -49,9 +48,9 @@ public interface ICharacter {
   int getWeight();
 
   /**
-   * Returns true if this character can be equipped with a weapon.
+   * Returns true if this character can equip the given weapon.
    */
-  boolean canEquip(Weapon weapon);
+  boolean canEquip(IWeapon weapon);
 
   /**
    * Returns this character's class.

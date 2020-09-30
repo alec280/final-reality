@@ -1,8 +1,8 @@
 package com.github.alec280.finalreality.model.character;
 
-import com.github.alec280.finalreality.model.character.player.CharacterClass;
-import com.github.alec280.finalreality.model.weapon.Weapon;
+import com.github.alec280.finalreality.model.weapon.IWeapon;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -12,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 /**
  * An abstract class that holds the common behaviour of all the characters in the game.
  *
- * @author Ignacio Slater Muñoz.
- * @author <Your name>
+ * @author Ignacio Slater Muñoz
+ * @author Alexander Cuevas.
  */
 public abstract class AbstractCharacter implements ICharacter {
 
@@ -26,8 +26,8 @@ public abstract class AbstractCharacter implements ICharacter {
   protected final int defense;
   protected int health;
 
-  protected AbstractCharacter(@NotNull BlockingQueue<ICharacter> turnsQueue,
-      CharacterClass characterClass, @NotNull String name, final int maxHealth, final int defense) {
+  protected AbstractCharacter(@NotNull String name, final int maxHealth, final int defense,
+      CharacterClass characterClass, @NotNull BlockingQueue<ICharacter> turnsQueue) {
     this.turnsQueue = turnsQueue;
     this.name = name;
     this.maxHealth = maxHealth;
@@ -51,28 +51,48 @@ public abstract class AbstractCharacter implements ICharacter {
   }
 
   @Override
-  public String getName() { return name; }
+  public String getName() {
+    return name;
+  }
 
   @Override
-  public int getMaxHealth() { return maxHealth; }
+  public int getMaxHealth() {
+    return maxHealth;
+  }
 
   @Override
-  public int getHealth() { return health; }
+  public int getHealth() {
+    return health;
+  }
 
   @Override
-  public int getDefense() { return defense; }
+  public int getDefense() {
+    return defense;
+  }
 
   @Override
-  public int getDamage() { return 0; }
+  public int getDamage() {
+    return 0;
+  }
 
   @Override
-  public int getWeight() { return 10; }
+  public int getWeight() {
+    return 10;
+  }
 
   @Override
-  public boolean canEquip(Weapon weapon) { return false; }
+  public boolean canEquip(IWeapon weapon) {
+    return false;
+  }
 
   @Override
   public CharacterClass getCharacterClass() {
     return characterClass;
   }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getName(), getCharacterClass());
+  }
+
 }
