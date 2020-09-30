@@ -1,7 +1,7 @@
 package com.github.cc3002.finalreality.model.character;
 
-import com.github.cc3002.finalreality.model.character.player.CharacterClass;
-import com.github.cc3002.finalreality.model.character.player.PlayerCharacter;
+import com.github.alec280.finalreality.model.character.Enemy;
+import com.github.alec280.finalreality.model.character.player.Thief;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,14 +12,14 @@ class EnemyTest extends AbstractCharacterTest {
   @BeforeEach
   void setUp() {
     basicSetUp();
-    testCharacters.add(new Enemy(ENEMY_NAME, 10, turns));
+    testCharacters.add(new Enemy(ENEMY_NAME, 5, 3, 3, 10, turns));
   }
 
   @Test
   void constructorTest() {
-    checkConstruction(new Enemy(ENEMY_NAME, 10, turns),
+    checkConstruction(new Enemy(ENEMY_NAME, 5, 3, 3, 10, turns),
         testCharacters.get(0),
-        new Enemy(ENEMY_NAME, 11, turns),
-        new PlayerCharacter(ENEMY_NAME, turns, CharacterClass.THIEF));
+        new Enemy("Hobgoblin", 5, 3, 3,10, turns),
+        new Thief(ENEMY_NAME, 5, 3, turns));
   }
 }

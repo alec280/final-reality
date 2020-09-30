@@ -1,0 +1,62 @@
+package com.github.alec280.finalreality.model.character;
+
+import java.util.concurrent.BlockingQueue;
+import org.jetbrains.annotations.NotNull;
+
+/**
+ * A class that holds all the information of a single enemy of the game.
+ *
+ * @author Ignacio Slater Muñoz
+ * @author Alexander Cuevas.
+ */
+public class Enemy extends AbstractCharacter {
+
+  private final int damage;
+  private final int weight;
+
+  /**
+   * Creates a new Enemy character.
+   *
+   * @param name
+   *     the enemy's name
+   * @param maxHealth
+   *     the enemy's maximum health
+   * @param defense
+   *     the enemy's defense
+   * @param damage
+   *     the enemy's damage
+   * @param weight
+   *     the enemy's weight
+   * @param turnsQueue
+   *     the queue with the characters waiting for their turn
+   */
+  public Enemy(@NotNull final String name, final int maxHealth, final int defense, final int damage,
+      final int weight, @NotNull final BlockingQueue<ICharacter> turnsQueue) {
+    super(name, maxHealth, defense, CharacterClass.ENEMY, turnsQueue);
+    this.damage = damage;
+    this.weight = weight;
+  }
+
+  @Override
+  public int getDamage() {
+    return damage;
+  }
+
+  @Override
+  public int getWeight() {
+    return weight;
+  }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Enemy)) {
+      return false;
+    }
+    final Enemy enemy = (Enemy) o;
+    return getName().equals(enemy.getName());
+  }
+
+}
