@@ -1,11 +1,14 @@
 package com.github.alec280.finalreality.model.character.player;
 
-import com.github.alec280.finalreality.model.character.CharacterClass;
 import com.github.alec280.finalreality.model.character.ICharacter;
+import com.github.alec280.finalreality.model.weapon.Axe;
 import com.github.alec280.finalreality.model.weapon.IWeapon;
-import com.github.alec280.finalreality.model.weapon.WeaponType;
+import com.github.alec280.finalreality.model.weapon.Knife;
+import com.github.alec280.finalreality.model.weapon.Sword;
+
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -29,14 +32,14 @@ public class Knight extends AbstractPlayer {
    */
   public Knight(@NotNull String name, int maxHealth, int defense,
       @NotNull BlockingQueue<ICharacter> turnsQueue) {
-    super(name, maxHealth, defense, CharacterClass.KNIGHT, turnsQueue);
+    super(name, maxHealth, defense, turnsQueue);
   }
 
   @Override
   public boolean canEquip(IWeapon weapon) {
-    return weapon.getType() == WeaponType.SWORD ||
-      weapon.getType() == WeaponType.AXE ||
-      weapon.getType() == WeaponType.KNIFE;
+    return weapon instanceof Sword ||
+      weapon instanceof Axe ||
+      weapon instanceof Knife;
   }
 
   @Override
@@ -49,6 +52,11 @@ public class Knight extends AbstractPlayer {
     }
     final Knight knight = (Knight) o;
     return getName().equals(knight.getName());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getName(), getClass());
   }
 
 }

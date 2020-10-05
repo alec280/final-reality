@@ -1,7 +1,6 @@
 package com.github.alec280.finalreality.model.character.player;
 
 import com.github.alec280.finalreality.model.character.AbstractCharacter;
-import com.github.alec280.finalreality.model.character.CharacterClass;
 import com.github.alec280.finalreality.model.character.ICharacter;
 import com.github.alec280.finalreality.model.weapon.IWeapon;
 import org.jetbrains.annotations.NotNull;
@@ -18,8 +17,8 @@ public abstract class AbstractPlayer extends AbstractCharacter {
   private IWeapon equippedWeapon = null;
 
   protected AbstractPlayer(@NotNull String name, final int maxHealth, final int defense,
-      final CharacterClass characterClass, @NotNull BlockingQueue<ICharacter> turnsQueue) {
-    super(name, maxHealth, defense, characterClass, turnsQueue);
+      @NotNull BlockingQueue<ICharacter> turnsQueue) {
+    super(name, maxHealth, defense, turnsQueue);
   }
 
   /**

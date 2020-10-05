@@ -52,8 +52,4 @@ public interface ICharacter {
    */
   boolean canEquip(IWeapon weapon);
 
-  /**
-   * Returns this character's class.
-   */
-  CharacterClass getCharacterClass();
 }

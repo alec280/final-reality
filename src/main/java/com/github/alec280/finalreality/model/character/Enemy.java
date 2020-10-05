@@ -1,5 +1,6 @@
 package com.github.alec280.finalreality.model.character;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,7 +33,7 @@ public class Enemy extends AbstractCharacter {
    */
   public Enemy(@NotNull final String name, final int maxHealth, final int defense, final int damage,
       final int weight, @NotNull final BlockingQueue<ICharacter> turnsQueue) {
-    super(name, maxHealth, defense, CharacterClass.ENEMY, turnsQueue);
+    super(name, maxHealth, defense, turnsQueue);
     this.damage = damage;
     this.weight = weight;
   }
@@ -57,6 +58,11 @@ public class Enemy extends AbstractCharacter {
     }
     final Enemy enemy = (Enemy) o;
     return getName().equals(enemy.getName());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getName(), getClass());
   }
 
 }

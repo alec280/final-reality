@@ -27,9 +27,4 @@ public interface IWeapon {
    */
   int getWeight();
 
-  /**
-   * Returns the type of this weapon.
-   */
-  WeaponType getType();
-
 }

@@ -1,5 +1,7 @@
 package com.github.alec280.finalreality.model.weapon;
 
+import java.util.Objects;
+
 /**
  * A class that holds all the information of a single staff.
  *
@@ -22,7 +24,7 @@ public class Staff extends AbstractWeapon {
    *     the magic damage of the staff
    */
   public Staff(final String name, final int damage, final int weight, final int magicDamage) {
-    super(name, damage, weight, WeaponType.STAFF);
+    super(name, damage, weight);
     this.magicDamage = magicDamage;
   }
 
@@ -41,6 +43,11 @@ public class Staff extends AbstractWeapon {
     }
     final Staff staff = (Staff) o;
     return getName().equals(staff.getName());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getName(), getClass());
   }
 
 }

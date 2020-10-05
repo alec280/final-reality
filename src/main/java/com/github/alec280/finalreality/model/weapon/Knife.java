@@ -1,5 +1,7 @@
 package com.github.alec280.finalreality.model.weapon;
 
+import java.util.Objects;
+
 /**
  * A class that holds all the information of a single knife.
  *
@@ -18,7 +20,7 @@ public class Knife extends AbstractWeapon {
    *     the weight of the knife
    */
   public Knife(final String name, final int damage, final int weight) {
-    super(name, damage, weight, WeaponType.KNIFE);
+    super(name, damage, weight);
   }
 
   @Override
@@ -32,5 +34,10 @@ public class Knife extends AbstractWeapon {
     final Knife knife = (Knife) o;
     return getName().equals(knife.getName());
   }
-  
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getName(), getClass());
+  }
+
 }
