@@ -1,11 +1,12 @@
 package com.github.alec280.finalreality.model.character.player;
 
-import com.github.alec280.finalreality.model.character.CharacterClass;
 import com.github.alec280.finalreality.model.character.ICharacter;
+import com.github.alec280.finalreality.model.weapon.Axe;
+import com.github.alec280.finalreality.model.weapon.Bow;
 import com.github.alec280.finalreality.model.weapon.IWeapon;
-import com.github.alec280.finalreality.model.weapon.WeaponType;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -29,13 +30,13 @@ public class Engineer extends AbstractPlayer {
    */
   public Engineer(@NotNull String name, int maxHealth, int defense,
       @NotNull BlockingQueue<ICharacter> turnsQueue) {
-    super(name, maxHealth, defense, CharacterClass.ENGINEER, turnsQueue);
+    super(name, maxHealth, defense, turnsQueue);
   }
 
   @Override
   public boolean canEquip(IWeapon weapon) {
-    return weapon.getType() == WeaponType.AXE ||
-      weapon.getType() == WeaponType.BOW;
+    return weapon instanceof Axe ||
+      weapon instanceof Bow;
   }
 
   @Override
@@ -48,6 +49,11 @@ public class Engineer extends AbstractPlayer {
     }
     final Engineer engineer = (Engineer) o;
     return getName().equals(engineer.getName());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getName(), getClass());
   }
 
 }

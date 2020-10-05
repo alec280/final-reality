@@ -1,6 +1,5 @@
 package com.github.alec280.finalreality.model.character.player;
 
-import com.github.alec280.finalreality.model.character.CharacterClass;
 import com.github.alec280.finalreality.model.character.ICharacter;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,9 +15,9 @@ public abstract class AbstractMage extends AbstractPlayer {
   private final int maxMana;
   private int mana;
 
-  protected AbstractMage(@NotNull final String name, final int maxHealth, final int defense, final int maxMana,
-      final CharacterClass characterClass, @NotNull final BlockingQueue<ICharacter> turnsQueue) {
-    super(name, maxHealth, defense, characterClass, turnsQueue);
+  protected AbstractMage(@NotNull final String name, final int maxHealth, final int defense,
+      final int maxMana, @NotNull final BlockingQueue<ICharacter> turnsQueue) {
+    super(name, maxHealth, defense, turnsQueue);
     this.maxMana = maxMana;
     this.mana = maxMana;
   }

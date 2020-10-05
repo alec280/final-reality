@@ -18,7 +18,6 @@ import org.jetbrains.annotations.NotNull;
 public abstract class AbstractCharacter implements ICharacter {
 
   protected final BlockingQueue<ICharacter> turnsQueue;
-  private final CharacterClass characterClass;
   private ScheduledExecutorService scheduledExecutor;
 
   protected final String name;
@@ -27,13 +26,12 @@ public abstract class AbstractCharacter implements ICharacter {
   protected int health;
 
   protected AbstractCharacter(@NotNull String name, final int maxHealth, final int defense,
-      CharacterClass characterClass, @NotNull BlockingQueue<ICharacter> turnsQueue) {
+      @NotNull BlockingQueue<ICharacter> turnsQueue) {
     this.turnsQueue = turnsQueue;
     this.name = name;
     this.maxHealth = maxHealth;
     this.health = maxHealth;
     this.defense = defense;
-    this.characterClass = characterClass;
   }
 
   @Override
@@ -83,16 +81,6 @@ public abstract class AbstractCharacter implements ICharacter {
   @Override
   public boolean canEquip(IWeapon weapon) {
     return false;
-  }
-
-  @Override
-  public CharacterClass getCharacterClass() {
-    return characterClass;
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(getName(), getCharacterClass());
   }
 
 }

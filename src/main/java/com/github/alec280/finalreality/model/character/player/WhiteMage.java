@@ -1,11 +1,11 @@
 package com.github.alec280.finalreality.model.character.player;
 
-import com.github.alec280.finalreality.model.character.CharacterClass;
 import com.github.alec280.finalreality.model.character.ICharacter;
 import com.github.alec280.finalreality.model.weapon.IWeapon;
-import com.github.alec280.finalreality.model.weapon.WeaponType;
+import com.github.alec280.finalreality.model.weapon.Staff;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -31,29 +31,12 @@ public class WhiteMage extends AbstractMage {
    */
   public WhiteMage(@NotNull String name, int maxHealth, int defense, int maxMana,
       @NotNull BlockingQueue<ICharacter> turnsQueue) {
-    super(name, maxHealth, defense, maxMana, CharacterClass.WHITE_MAGE, turnsQueue);
-  }
-
-  /**
-   * Creates a new White Mage player without mana.
-   *
-   * @param name
-   *     the mage's name
-   * @param maxHealth
-   *     the mage's maximum health
-   * @param defense
-   *     the mage's defense
-   * @param turnsQueue
-   *     the queue with the characters waiting for their turn
-   */
-  public WhiteMage(@NotNull String name, int maxHealth, int defense,
-      @NotNull BlockingQueue<ICharacter> turnsQueue) {
-    super(name, maxHealth, defense, 0, CharacterClass.WHITE_MAGE, turnsQueue);
+    super(name, maxHealth, defense, maxMana, turnsQueue);
   }
 
   @Override
   public boolean canEquip(IWeapon weapon) {
-    return weapon.getType() == WeaponType.STAFF;
+    return weapon instanceof Staff;
   }
 
   @Override
@@ -66,6 +49,11 @@ public class WhiteMage extends AbstractMage {
     }
     final WhiteMage mage = (WhiteMage) o;
     return getName().equals(mage.getName());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getName(), getClass());
   }
 
 }

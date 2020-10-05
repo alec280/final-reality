@@ -1,5 +1,7 @@
 package com.github.alec280.finalreality.model.weapon;
 
+import java.util.Objects;
+
 /**
  * A class that holds all the information of a single bow.
  *
@@ -18,7 +20,7 @@ public class Bow extends AbstractWeapon {
    *     the weight of the bow
    */
   public Bow(final String name, final int damage, final int weight) {
-    super(name, damage, weight, WeaponType.BOW);
+    super(name, damage, weight);
   }
 
   @Override
@@ -32,5 +34,10 @@ public class Bow extends AbstractWeapon {
     final Bow bow = (Bow) o;
     return getName().equals(bow.getName());
   }
-  
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getName(), getClass());
+  }
+
 }
