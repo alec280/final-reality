@@ -2,10 +2,7 @@ package com.github.alec280.finalreality.model.character.player;
 
 import com.github.alec280.finalreality.model.character.ICharacter;
 
-import com.github.alec280.finalreality.model.weapon.Bow;
 import com.github.alec280.finalreality.model.weapon.IWeapon;
-import com.github.alec280.finalreality.model.weapon.Staff;
-import com.github.alec280.finalreality.model.weapon.Sword;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -36,10 +33,8 @@ public class Thief extends AbstractPlayer {
   }
 
   @Override
-  public boolean canEquip(IWeapon weapon) {
-    return weapon instanceof Sword ||
-      weapon instanceof Staff ||
-      weapon instanceof Bow;
+  public boolean canEquip(@NotNull IWeapon weapon) {
+    return super.canEquip(weapon) && weapon.canBeEquippedToThief();
   }
 
   @Override

@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class Staff extends AbstractWeapon {
 
-  private final int magicDamage;
+  private final int magicAttack;
 
   /**
    * Creates a new Staff weapon.
@@ -20,17 +20,32 @@ public class Staff extends AbstractWeapon {
    *     the damage of the staff
    * @param weight
    *     the weight of the staff
-   * @param magicDamage
-   *     the magic damage of the staff
+   * @param magicAttack
+   *     the magic attack of the staff
    */
-  public Staff(final String name, final int damage, final int weight, final int magicDamage) {
+  public Staff(final String name, final int damage, final int weight, final int magicAttack) {
     super(name, damage, weight);
-    this.magicDamage = magicDamage;
+    this.magicAttack = magicAttack;
   }
 
   @Override
-  public int getMagicDamage() {
-    return magicDamage;
+  public boolean canBeEquippedToBlackMage() {
+    return true;
+  }
+
+  @Override
+  public boolean canBeEquippedToWhiteMage() {
+    return true;
+  }
+
+  @Override
+  public boolean canBeEquippedToThief() {
+    return true;
+  }
+
+  @Override
+  public int getMagicAttack() {
+    return magicAttack;
   }
 
   @Override

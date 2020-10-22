@@ -2,7 +2,6 @@ package com.github.alec280.finalreality.model.character.player;
 
 import com.github.alec280.finalreality.model.character.ICharacter;
 import com.github.alec280.finalreality.model.weapon.IWeapon;
-import com.github.alec280.finalreality.model.weapon.Staff;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -35,8 +34,8 @@ public class WhiteMage extends AbstractMage {
   }
 
   @Override
-  public boolean canEquip(IWeapon weapon) {
-    return weapon instanceof Staff;
+  public boolean canEquip(@NotNull IWeapon weapon) {
+    return super.canEquip(weapon) && weapon.canBeEquippedToWhiteMage();
   }
 
   @Override

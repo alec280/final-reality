@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class Enemy extends AbstractCharacter {
 
-  private final int damage;
+  private final int attack;
   private final int weight;
 
   /**
@@ -24,23 +24,23 @@ public class Enemy extends AbstractCharacter {
    *     the enemy's maximum health
    * @param defense
    *     the enemy's defense
-   * @param damage
-   *     the enemy's damage
+   * @param attack
+   *     the enemy's attack
    * @param weight
    *     the enemy's weight
    * @param turnsQueue
    *     the queue with the characters waiting for their turn
    */
-  public Enemy(@NotNull final String name, final int maxHealth, final int defense, final int damage,
+  public Enemy(@NotNull final String name, final int maxHealth, final int defense, final int attack,
       final int weight, @NotNull final BlockingQueue<ICharacter> turnsQueue) {
     super(name, maxHealth, defense, turnsQueue);
-    this.damage = damage;
+    this.attack = attack;
     this.weight = weight;
   }
 
   @Override
-  public int getDamage() {
-    return damage;
+  public int getAttack() {
+    return attack;
   }
 
   @Override

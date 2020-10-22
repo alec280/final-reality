@@ -14,13 +14,23 @@ public class Knife extends AbstractWeapon {
    *
    * @param name
    *     the name of the knife
-   * @param damage
-   *     the damage of the knife
+   * @param attack
+   *     the attack of the knife
    * @param weight
    *     the weight of the knife
    */
-  public Knife(final String name, final int damage, final int weight) {
-    super(name, damage, weight);
+  public Knife(final String name, final int attack, final int weight) {
+    super(name, attack, weight);
+  }
+
+  @Override
+  public boolean canBeEquippedToBlackMage() {
+    return true;
+  }
+
+  @Override
+  public boolean canBeEquippedToKnight() {
+    return true;
   }
 
   @Override

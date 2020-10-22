@@ -14,13 +14,23 @@ public class Bow extends AbstractWeapon {
    *
    * @param name
    *     the name of the bow
-   * @param damage
-   *     the damage of the bow
+   * @param attack
+   *     the attack of the bow
    * @param weight
    *     the weight of the bow
    */
-  public Bow(final String name, final int damage, final int weight) {
-    super(name, damage, weight);
+  public Bow(final String name, final int attack, final int weight) {
+    super(name, attack, weight);
+  }
+
+  @Override
+  public boolean canBeEquippedToEngineer() {
+    return true;
+  }
+
+  @Override
+  public boolean canBeEquippedToThief() {
+    return true;
   }
 
   @Override

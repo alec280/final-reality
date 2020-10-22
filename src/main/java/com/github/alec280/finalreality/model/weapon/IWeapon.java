@@ -13,18 +13,43 @@ public interface IWeapon {
   String getName();
 
   /**
-   * Returns the damage of this weapon.
+   * Returns the attack of this weapon.
    */
-  int getDamage();
+  int getAttack();
 
   /**
-   * Returns the magic damage of this weapon.
+   * Returns the magic attack of this weapon.
    */
-  int getMagicDamage();
+  int getMagicAttack();
 
   /**
    * Returns the weight of this weapon.
    */
   int getWeight();
+
+  /**
+   * Returns true if this weapon can be equipped to a black mage.
+   */
+  boolean canBeEquippedToBlackMage();
+
+  /**
+   * Returns true if this weapon can be equipped to a white mage.
+   */
+  boolean canBeEquippedToWhiteMage();
+
+  /**
+   * Returns true if this weapon can be equipped to an engineer.
+   */
+  boolean canBeEquippedToEngineer();
+
+  /**
+   * Returns true if this weapon can be equipped to a knight.
+   */
+  boolean canBeEquippedToKnight();
+
+  /**
+   * Returns true if this weapon can be equipped to a thief.
+   */
+  boolean canBeEquippedToThief();
 
 }

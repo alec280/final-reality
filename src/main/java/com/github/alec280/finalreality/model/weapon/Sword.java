@@ -14,13 +14,23 @@ public class Sword extends AbstractWeapon {
    *
    * @param name
    *     the name of the sword
-   * @param damage
-   *     the damage of the sword
+   * @param attack
+   *     the attack of the sword
    * @param weight
    *     the weight of the sword
    */
-  public Sword(final String name, final int damage, final int weight) {
-    super(name, damage, weight);
+  public Sword(final String name, final int attack, final int weight) {
+    super(name, attack, weight);
+  }
+
+  @Override
+  public boolean canBeEquippedToKnight() {
+    return true;
+  }
+
+  @Override
+  public boolean canBeEquippedToThief() {
+    return true;
   }
 
   @Override

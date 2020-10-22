@@ -1,6 +1,7 @@
 package com.github.cc3002.finalreality.model.character.player;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.github.alec280.finalreality.model.character.ICharacter;
 import com.github.alec280.finalreality.model.character.player.*;
@@ -20,8 +21,6 @@ abstract class AbstractPlayerTest extends AbstractCharacterTest {
   protected static final String WHITE_MAGE_NAME = "Eiko";
   protected static final String ENGINEER_NAME = "Cid";
   protected static final String THIEF_NAME = "Zidane";
-  protected static final int DEFAULT_DAMAGE = 0;
-  protected static final int DEFAULT_WEIGHT = 10;
 
   protected BlackMage testBlackMage;
   protected Knight testKnight;
@@ -32,11 +31,11 @@ abstract class AbstractPlayerTest extends AbstractCharacterTest {
   protected void playerSetUp() {
     super.basicSetUp();
 
-    testBlackMage = new BlackMage(BLACK_MAGE_NAME, 5, 3, 3, turns);
-    testKnight = new Knight(KNIGHT_NAME, 5, 3, turns);
-    testWhiteMage = new WhiteMage(WHITE_MAGE_NAME, 5, 3, 3, turns);
-    testEngineer = new Engineer(ENGINEER_NAME, 5, 3, turns);
-    testThief = new Thief(THIEF_NAME, 5, 3, turns);
+    testBlackMage = new BlackMage(BLACK_MAGE_NAME, HEALTH, DEFENSE, 3, turns);
+    testKnight = new Knight(KNIGHT_NAME, HEALTH, DEFENSE, turns);
+    testWhiteMage = new WhiteMage(WHITE_MAGE_NAME, HEALTH, DEFENSE, 3, turns);
+    testEngineer = new Engineer(ENGINEER_NAME, HEALTH, DEFENSE, turns);
+    testThief = new Thief(THIEF_NAME, HEALTH, DEFENSE, turns);
   }
 
   /**
@@ -44,18 +43,24 @@ abstract class AbstractPlayerTest extends AbstractCharacterTest {
    */
   @Test
   void weaponTest() {
-    hasNoWeapon(testCharacters.get(0));
+    final ICharacter character = testCharacters.get(0);
+
+    hasNoWeapon(character);
     equipWeapon();
-    hasWeapon(testCharacters.get(0));
+    hasWeapon(character);
+    character.setHealth(0);
+    for (var weapon : testWeapons) {
+      assertFalse(character.canEquip(weapon));
+    }
   }
 
   private void hasNoWeapon(ICharacter character) {
-    assertEquals(DEFAULT_DAMAGE, character.getDamage());
+    assertEquals(DEFAULT_ATTACK, character.getAttack());
     assertEquals(DEFAULT_WEIGHT, character.getWeight());
   }
 
   private void hasWeapon(ICharacter character) {
-    assertEquals(WEAPON_DAMAGE, character.getDamage());
+    assertEquals(WEAPON_DAMAGE, character.getAttack());
     assertEquals(WEAPON_WEIGHT, character.getWeight());
   }
 

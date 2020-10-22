@@ -1,7 +1,6 @@
 package com.github.cc3002.finalreality.model.character;
 
 import com.github.alec280.finalreality.model.character.Enemy;
-import com.github.alec280.finalreality.model.character.ICharacter;
 import com.github.alec280.finalreality.model.character.player.Thief;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,9 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class EnemyTest extends AbstractCharacterTest {
 
   private static final String ENEMY_NAME = "Goblin";
-  private static final int DAMAGE = 3;
-  private static final int WEIGHT = 10;
-
   private Enemy testEnemy;
 
   /**
@@ -31,7 +27,7 @@ public class EnemyTest extends AbstractCharacterTest {
   @BeforeEach
   void setUp() {
     basicSetUp();
-    testEnemy = new Enemy(ENEMY_NAME, HEALTH, DEFENSE, DAMAGE, WEIGHT, turns);
+    testEnemy = new Enemy(ENEMY_NAME, HEALTH, DEFENSE, DEFAULT_ATTACK, DEFAULT_WEIGHT, turns);
     testCharacters.add(testEnemy);
   }
 
@@ -40,17 +36,18 @@ public class EnemyTest extends AbstractCharacterTest {
    */
   @Test
   void constructorTest() {
-    var expectedEnemy = new Enemy(ENEMY_NAME, HEALTH, DEFENSE, DAMAGE, WEIGHT, turns);
+    var expectedEnemy = new Enemy(ENEMY_NAME, HEALTH, DEFENSE, DEFAULT_ATTACK,
+      DEFAULT_WEIGHT, turns);
 
-    assertEquals(DAMAGE, expectedEnemy.getDamage());
-    assertEquals(WEIGHT, expectedEnemy.getWeight());
+    assertEquals(DEFAULT_ATTACK, expectedEnemy.getAttack());
+    assertEquals(DEFAULT_WEIGHT, expectedEnemy.getWeight());
 
     for (var weapon : testWeapons) {
       assertFalse(expectedEnemy.canEquip(weapon));
     }
 
     checkConstruction(expectedEnemy, testEnemy,
-        new Enemy("Hobgoblin", HEALTH, DEFENSE, DAMAGE, WEIGHT, turns),
+        new Enemy("Hobgoblin", HEALTH, DEFENSE, DEFAULT_ATTACK, DEFAULT_WEIGHT, turns),
         new Thief(ENEMY_NAME, HEALTH, DEFENSE, turns));
   }
 }

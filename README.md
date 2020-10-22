@@ -25,6 +25,9 @@ Assumptions
 The development of this project assumes that all types of weapon and player character may require
 unique properties in the future, therefore, they are implemented with a high amount of subclasses.
 
+It also assumes that the minimum damage value is 1, this ensures that every combat comes to an end
+and no character regains health through damage.
+
 Program summary
 ---------------
 Even though the project can't be executed, its logic can be explained as follows:<br>
