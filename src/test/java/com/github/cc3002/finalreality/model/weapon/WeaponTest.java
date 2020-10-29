@@ -3,7 +3,6 @@ package com.github.cc3002.finalreality.model.weapon;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import com.github.alec280.finalreality.model.character.ICharacter;
 import com.github.alec280.finalreality.model.weapon.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,9 +54,9 @@ class WeaponTest {
     var expectedBow = new Bow(BOW_NAME, DAMAGE, SPEED);
     var expectedKnife = new Knife(KNIFE_NAME, DAMAGE, SPEED);
 
-    assertEquals(DAMAGE, testAxe.getDamage());
-    assertEquals(MAGIC_DAMAGE, testStaff.getMagicDamage());
-    assertNotEquals(DAMAGE, testSword.getMagicDamage());
+    assertEquals(DAMAGE, testAxe.getAttack());
+    assertEquals(MAGIC_DAMAGE, testStaff.getMagicAttack());
+    assertNotEquals(DAMAGE, testSword.getMagicAttack());
     assertEquals(SPEED, testBow.getWeight());
     assertEquals(KNIFE_NAME, testKnife.getName());
 

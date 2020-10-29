@@ -1,6 +1,7 @@
 package com.github.alec280.finalreality.model.character;
 
 import com.github.alec280.finalreality.model.weapon.IWeapon;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This represents a character from the game.
@@ -33,14 +34,19 @@ public interface ICharacter {
   int getHealth();
 
   /**
+   * Sets this character's current health to a value between 0 and its maximum health.
+   */
+  void setHealth(final int value);
+
+  /**
    * Returns this character's defense.
    */
   int getDefense();
 
   /**
-   * Returns this character's damage.
+   * Returns this character's attack.
    */
-  int getDamage();
+  int getAttack();
 
   /**
    * Returns this character's weight.
@@ -50,6 +56,16 @@ public interface ICharacter {
   /**
    * Returns true if this character can equip the given weapon.
    */
-  boolean canEquip(IWeapon weapon);
+  boolean canEquip(@NotNull IWeapon weapon);
+
+  /**
+   * Returns true if this character's current health is greater than zero.
+   */
+  boolean isAlive();
+
+  /**
+   * This character deals damage to another character, the target must be alive.
+   */
+  void doDamage(@NotNull ICharacter target);
 
 }

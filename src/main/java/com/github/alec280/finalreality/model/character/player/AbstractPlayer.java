@@ -24,8 +24,8 @@ public abstract class AbstractPlayer extends AbstractCharacter {
   /**
    * Equips a weapon to the player.
    */
-  public void equip(IWeapon weapon) {
-    this.equippedWeapon = weapon;
+  public void equip(@NotNull IWeapon weapon) {
+    equippedWeapon = weapon;
   }
 
   /**
@@ -36,11 +36,16 @@ public abstract class AbstractPlayer extends AbstractCharacter {
   }
 
   @Override
-  public int getDamage() {
+  public boolean canEquip(@NotNull IWeapon weapon) {
+    return isAlive();
+  }
+
+  @Override
+  public int getAttack() {
     if (getEquippedWeapon() == null) {
-      return super.getDamage();
+      return super.getAttack();
     }
-    return getEquippedWeapon().getDamage();
+    return getEquippedWeapon().getAttack();
   }
 
   @Override

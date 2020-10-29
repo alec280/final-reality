@@ -1,8 +1,6 @@
 package com.github.alec280.finalreality.model.character.player;
 
 import com.github.alec280.finalreality.model.character.ICharacter;
-import com.github.alec280.finalreality.model.weapon.Axe;
-import com.github.alec280.finalreality.model.weapon.Bow;
 import com.github.alec280.finalreality.model.weapon.IWeapon;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,9 +32,8 @@ public class Engineer extends AbstractPlayer {
   }
 
   @Override
-  public boolean canEquip(IWeapon weapon) {
-    return weapon instanceof Axe ||
-      weapon instanceof Bow;
+  public boolean canEquip(@NotNull IWeapon weapon) {
+    return super.canEquip(weapon) && weapon.canBeEquippedToEngineer();
   }
 
   @Override

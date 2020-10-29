@@ -14,13 +14,23 @@ public class Axe extends AbstractWeapon {
    *
    * @param name
    *     the name of the axe
-   * @param damage
-   *     the damage of the axe
+   * @param attack
+   *     the attack of the axe
    * @param weight
    *     the weight of the axe
    */
-  public Axe(final String name, final int damage, final int weight) {
-    super(name, damage, weight);
+  public Axe(final String name, final int attack, final int weight) {
+    super(name, attack, weight);
+  }
+
+  @Override
+  public boolean canBeEquippedToEngineer() {
+    return true;
+  }
+
+  @Override
+  public boolean canBeEquippedToKnight() {
+    return true;
   }
 
   @Override

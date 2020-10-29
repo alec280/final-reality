@@ -8,12 +8,12 @@ package com.github.alec280.finalreality.model.weapon;
 public abstract class AbstractWeapon implements IWeapon {
 
   private final String name;
-  private final int damage;
+  private final int attack;
   private final int weight;
 
-  protected AbstractWeapon(final String name, final int damage, final int weight) {
+  protected AbstractWeapon(final String name, final int attack, final int weight) {
     this.name = name;
-    this.damage = damage;
+    this.attack = attack;
     this.weight = weight;
   }
 
@@ -23,13 +23,13 @@ public abstract class AbstractWeapon implements IWeapon {
   }
 
   @Override
-  public int getDamage() {
-    return damage;
+  public int getAttack() {
+    return attack;
   }
 
   @Override
-  public int getMagicDamage() {
-    return getDamage() / 5;
+  public int getMagicAttack() {
+    return getAttack() / 5;
   }
 
   @Override
@@ -37,4 +37,28 @@ public abstract class AbstractWeapon implements IWeapon {
     return weight;
   }
 
+  @Override
+  public boolean canBeEquippedToBlackMage() {
+    return false;
+  }
+
+  @Override
+  public boolean canBeEquippedToWhiteMage() {
+    return false;
+  }
+
+  @Override
+  public boolean canBeEquippedToEngineer() {
+    return false;
+  }
+
+  @Override
+  public boolean canBeEquippedToKnight() {
+    return false;
+  }
+
+  @Override
+  public boolean canBeEquippedToThief() {
+    return false;
+  }
 }

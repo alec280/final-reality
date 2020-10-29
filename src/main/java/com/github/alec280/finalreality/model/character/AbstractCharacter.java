@@ -2,7 +2,6 @@ package com.github.alec280.finalreality.model.character;
 
 import com.github.alec280.finalreality.model.weapon.IWeapon;
 
-import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -34,18 +33,18 @@ public abstract class AbstractCharacter implements ICharacter {
     this.defense = defense;
   }
 
-  @Override
-  public void waitTurn() {
-    scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-    scheduledExecutor.schedule(this::addToQueue, getWeight() / 10, TimeUnit.SECONDS);
-  }
-
   /**
    * Adds this character to the turns queue.
    */
   private void addToQueue() {
     turnsQueue.add(this);
     scheduledExecutor.shutdown();
+  }
+
+  @Override
+  public void waitTurn() {
+    scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+    scheduledExecutor.schedule(this::addToQueue, getWeight() / 10, TimeUnit.SECONDS);
   }
 
   @Override
@@ -64,13 +63,18 @@ public abstract class AbstractCharacter implements ICharacter {
   }
 
   @Override
+  public void setHealth(final int value) {
+    health = Math.max(0, Math.min(getMaxHealth(), value));
+  }
+
+  @Override
   public int getDefense() {
     return defense;
   }
 
   @Override
-  public int getDamage() {
-    return 0;
+  public int getAttack() {
+    return 1;
   }
 
   @Override
@@ -79,8 +83,19 @@ public abstract class AbstractCharacter implements ICharacter {
   }
 
   @Override
-  public boolean canEquip(IWeapon weapon) {
+  public boolean canEquip(@NotNull IWeapon weapon) {
     return false;
+  }
+
+  @Override
+  public boolean isAlive() {
+    return getHealth() > 0;
+  }
+
+  @Override
+  public void doDamage(@NotNull ICharacter target) {
+    final int damage = Math.max(1, getAttack() - target.getDefense());
+    target.setHealth(target.getHealth() - damage);
   }
 
 }

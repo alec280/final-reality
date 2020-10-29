@@ -1,5 +1,6 @@
 package com.github.cc3002.finalreality.model.character;
 
+import com.github.alec280.finalreality.model.character.Enemy;
 import com.github.alec280.finalreality.model.character.ICharacter;
 import com.github.alec280.finalreality.model.weapon.*;
 
@@ -25,6 +26,8 @@ public abstract class AbstractCharacterTest {
   protected List<ICharacter> testCharacters;
   protected static final int HEALTH = 10;
   protected static final int DEFENSE = 3;
+  protected static final int DEFAULT_ATTACK = 1;
+  protected static final int DEFAULT_WEIGHT = 10;
 
   protected List<IWeapon> testWeapons;
   protected static final int WEAPON_DAMAGE = 10;
@@ -48,14 +51,71 @@ public abstract class AbstractCharacterTest {
       // Thread.sleep is not accurate so this values may be changed to adjust the
       // acceptable error margin.
       // We're testing that the character waits approximately 1 second.
-      Thread.sleep(900);
+      Thread.sleep(800);
       assertEquals(0, turns.size());
-      Thread.sleep(200);
+      Thread.sleep(400);
       assertEquals(1, turns.size());
       assertEquals(testCharacters.get(0), turns.peek());
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Checks that two characters can fight correctly.
+   */
+  @Test
+  void combatTest() {
+    final ICharacter character = testCharacters.get(0);
+    final ICharacter weakling = new Enemy("Weakling", HEALTH, 0,
+      DEFAULT_ATTACK, DEFAULT_WEIGHT, turns);
+    final ICharacter bandit = new Enemy("Bandit", HEALTH, 0,
+      HEALTH, DEFAULT_WEIGHT, turns);
+    final ICharacter champion = new Enemy("Champion", HEALTH, 0,
+      HEALTH + DEFENSE, DEFAULT_WEIGHT, turns);
+
+    minimumDamageCombat(character, weakling);
+    fairCombat(character, bandit);
+    unfairCombat(character, champion);
+
+  }
+
+  protected void fairCombat(final ICharacter first, final ICharacter second) {
+    simulateCombat(first, second);
+    assertFalse(first.isAlive());
+    assertTrue(second.isAlive());
+    assertTrue(second.getMaxHealth() > second.getHealth());
+    undoDamage(first, second);
+  }
+
+  protected void unfairCombat(final ICharacter first, final ICharacter second) {
+    simulateCombat(first, second);
+    assertFalse(first.isAlive());
+    assertTrue(second.isAlive());
+    assertEquals(second.getMaxHealth() - DEFAULT_ATTACK, second.getHealth());
+    undoDamage(first, second);
+  }
+
+  protected void minimumDamageCombat(final ICharacter first, final ICharacter second) {
+    simulateCombat(first, second);
+    assertFalse(second.isAlive());
+    assertTrue(first.isAlive());
+    assertEquals(1, first.getHealth());
+    undoDamage(first, second);
+  }
+
+  protected void simulateCombat(final ICharacter first, final ICharacter second) {
+    while (first.isAlive() && second.isAlive()) {
+      first.doDamage(second);
+      if (second.isAlive()) {
+        second.doDamage(first);
+      }
+    }
+  }
+
+  protected void undoDamage(final ICharacter first, final ICharacter second) {
+    first.setHealth(first.getMaxHealth());
+    second.setHealth(second.getMaxHealth());
   }
 
   protected void checkConstruction(final ICharacter expectedCharacter,
