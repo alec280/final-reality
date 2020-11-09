@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
 /**
@@ -41,10 +40,6 @@ public class EnemyTest extends AbstractCharacterTest {
 
     assertEquals(DEFAULT_ATTACK, expectedEnemy.getAttack());
     assertEquals(DEFAULT_WEIGHT, expectedEnemy.getWeight());
-
-    for (var weapon : testWeapons) {
-      assertFalse(expectedEnemy.canEquip(weapon));
-    }
 
     checkConstruction(expectedEnemy, testEnemy,
         new Enemy("Hobgoblin", HEALTH, DEFENSE, DEFAULT_ATTACK, DEFAULT_WEIGHT, turns),

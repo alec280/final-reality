@@ -12,7 +12,7 @@ import java.util.concurrent.BlockingQueue;
  *
  * @author Alexander Cuevas.
  */
-public abstract class AbstractPlayer extends AbstractCharacter {
+public abstract class AbstractPlayer extends AbstractCharacter implements IPlayerCharacter {
 
   private IWeapon equippedWeapon = null;
 
@@ -21,16 +21,12 @@ public abstract class AbstractPlayer extends AbstractCharacter {
     super(name, maxHealth, defense, turnsQueue);
   }
 
-  /**
-   * Equips a weapon to the player.
-   */
+  @Override
   public void equip(@NotNull IWeapon weapon) {
     equippedWeapon = weapon;
   }
 
-  /**
-   * Return this player's equipped weapon.
-   */
+  @Override
   public IWeapon getEquippedWeapon() {
     return equippedWeapon;
   }

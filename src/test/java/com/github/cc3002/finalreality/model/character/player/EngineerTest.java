@@ -48,6 +48,9 @@ public class EngineerTest extends AbstractPlayerTest {
     assertNull(testEngineer.getEquippedWeapon());
     testEngineer.equip(testAxe);
     assertEquals(testAxe, testEngineer.getEquippedWeapon());
+
+    testEngineer.setHealth(0);
+    unableToEquip(testEngineer);
   }
 
 }

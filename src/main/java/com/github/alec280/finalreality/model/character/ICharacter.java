@@ -1,6 +1,5 @@
 package com.github.alec280.finalreality.model.character;
 
-import com.github.alec280.finalreality.model.weapon.IWeapon;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -52,11 +51,6 @@ public interface ICharacter {
    * Returns this character's weight.
    */
   int getWeight();
-
-  /**
-   * Returns true if this character can equip the given weapon.
-   */
-  boolean canEquip(@NotNull IWeapon weapon);
 
   /**
    * Returns true if this character's current health is greater than zero.

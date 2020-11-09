@@ -47,6 +47,9 @@ public class WhiteMageTest extends AbstractMageTest {
     assertNull(testWhiteMage.getEquippedWeapon());
     testWhiteMage.equip(testStaff);
     assertEquals(testStaff, testWhiteMage.getEquippedWeapon());
+
+    testWhiteMage.setHealth(0);
+    unableToEquip(testWhiteMage);
   }
 
 }
