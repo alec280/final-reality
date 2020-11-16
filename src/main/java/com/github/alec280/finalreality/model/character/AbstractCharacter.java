@@ -1,7 +1,5 @@
 package com.github.alec280.finalreality.model.character;
 
-import com.github.alec280.finalreality.model.weapon.IWeapon;
-
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -80,11 +78,6 @@ public abstract class AbstractCharacter implements ICharacter {
   @Override
   public int getWeight() {
     return 10;
-  }
-
-  @Override
-  public boolean canEquip(@NotNull IWeapon weapon) {
-    return false;
   }
 
   @Override

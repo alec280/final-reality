@@ -48,6 +48,9 @@ public class KnightTest extends AbstractPlayerTest {
     assertNull(testKnight.getEquippedWeapon());
     testKnight.equip(testAxe);
     assertEquals(testAxe, testKnight.getEquippedWeapon());
+
+    testKnight.setHealth(0);
+    unableToEquip(testKnight);
   }
 
 }

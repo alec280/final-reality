@@ -47,6 +47,9 @@ public class ThiefTest extends AbstractPlayerTest {
     assertNull(testThief.getEquippedWeapon());
     testThief.equip(testBow);
     assertEquals(testBow, testThief.getEquippedWeapon());
+
+    testThief.setHealth(0);
+    unableToEquip(testThief);
   }
 
 }

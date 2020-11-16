@@ -45,23 +45,19 @@ abstract class AbstractPlayerTest extends AbstractCharacterTest {
   void weaponTest() {
     final ICharacter character = testCharacters.get(0);
 
-    hasNoWeapon(character);
-    equipWeapon();
-    hasWeapon(character);
-    character.setHealth(0);
-    for (var weapon : testWeapons) {
-      assertFalse(character.canEquip(weapon));
-    }
-  }
-
-  private void hasNoWeapon(ICharacter character) {
     assertEquals(DEFAULT_ATTACK, character.getAttack());
     assertEquals(DEFAULT_WEIGHT, character.getWeight());
-  }
 
-  private void hasWeapon(ICharacter character) {
+    equipWeapon();
+
     assertEquals(WEAPON_DAMAGE, character.getAttack());
     assertEquals(WEAPON_WEIGHT, character.getWeight());
+  }
+
+  protected void unableToEquip(IPlayerCharacter player) {
+    for (var weapon : testWeapons) {
+      assertFalse(player.canEquip(weapon));
+    }
   }
 
   abstract void equipWeapon();
