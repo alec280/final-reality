@@ -34,5 +34,4 @@ Even though the project can't be executed, its logic can be explained as follows
 - There are two type of characters, player characters (controlled by the user) and enemies 
 (controlled by the CPU), both of them have stats.
 - There are weapons that can be equipped to player characters in order to change their stats.
-- There are status effects that can change the stats of a character or how it behaves.
 - Eventually, player characters and enemies will battle, and their stats will decide who wins.
