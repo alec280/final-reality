@@ -77,7 +77,6 @@ public abstract class AbstractCharacterTest {
     minimumDamageCombat(character, weakling);
     fairCombat(character, bandit);
     unfairCombat(character, champion);
-
   }
 
   protected void fairCombat(final ICharacter first, final ICharacter second) {

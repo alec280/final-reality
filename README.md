@@ -28,6 +28,8 @@ unique properties in the future, therefore, they are implemented with a high amo
 It also assumes that the minimum damage value is 1, this ensures that every combat comes to an end
 and no character regains health through damage.
 
+Finally, it assumes that player characters can only be equipped with weapons own by the user.
+
 Program summary
 ---------------
 Even though the project can't be executed, its logic can be explained as follows:<br>

@@ -1,5 +1,6 @@
 package com.github.alec280.finalreality.model.character.player;
 
+import com.github.alec280.finalreality.model.character.ICharacter;
 import com.github.alec280.finalreality.model.weapon.IWeapon;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Alexander Cuevas.
  */
-public interface IPlayerCharacter {
+public interface IPlayerCharacter extends ICharacter {
 
     /**
      * Returns true if this player can equip the given weapon.
