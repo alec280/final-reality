@@ -1,5 +1,7 @@
 package com.github.alec280.finalreality.model.character;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -14,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public abstract class AbstractCharacter implements ICharacter {
 
+  private final PropertyChangeSupport propertyChange;
   protected final BlockingQueue<ICharacter> turnsQueue;
   private ScheduledExecutorService scheduledExecutor;
 
@@ -29,6 +32,7 @@ public abstract class AbstractCharacter implements ICharacter {
     this.maxHealth = maxHealth;
     this.health = maxHealth;
     this.defense = defense;
+    this.propertyChange = new PropertyChangeSupport(this);
   }
 
   /**
@@ -37,6 +41,14 @@ public abstract class AbstractCharacter implements ICharacter {
   private void addToQueue() {
     turnsQueue.add(this);
     scheduledExecutor.shutdown();
+    if (turnsQueue.size() == 1) {
+      propertyChange.firePropertyChange("turn", false, true);
+    }
+  }
+
+  @Override
+  public void addListener(PropertyChangeListener listener) {
+    propertyChange.addPropertyChangeListener(listener);
   }
 
   @Override
@@ -62,7 +74,9 @@ public abstract class AbstractCharacter implements ICharacter {
 
   @Override
   public void setHealth(final int value) {
+    final int oldHealth = health;
     health = Math.max(0, Math.min(getMaxHealth(), value));
+    propertyChange.firePropertyChange("health", oldHealth, health);
   }
 
   @Override
@@ -89,6 +103,7 @@ public abstract class AbstractCharacter implements ICharacter {
   public void doDamage(@NotNull ICharacter target) {
     final int damage = Math.max(1, getAttack() - target.getDefense());
     target.setHealth(target.getHealth() - damage);
+    propertyChange.firePropertyChange("turn", true, false);
   }
 
 }

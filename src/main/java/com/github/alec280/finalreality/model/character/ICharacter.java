@@ -2,6 +2,8 @@ package com.github.alec280.finalreality.model.character;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.beans.PropertyChangeListener;
+
 /**
  * This represents a character from the game.
  * A character can be controlled by the player or by the CPU (an enemy).
@@ -62,4 +64,8 @@ public interface ICharacter {
    */
   void doDamage(@NotNull ICharacter target);
 
+  /**
+   * Adds a listener that is triggered when a property of this character changes.
+   */
+  void addListener(PropertyChangeListener listener);
 }
