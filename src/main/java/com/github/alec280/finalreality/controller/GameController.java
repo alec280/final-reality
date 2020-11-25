@@ -9,8 +9,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.Random;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * This represents a controller of the game, it handles the interaction between the user
@@ -31,7 +32,7 @@ public class GameController {
   public GameController() {
     this.user = new User();
     this.enemies = new ArrayList<>();
-    this.turnsQueue = new ArrayBlockingQueue<>(8);
+    this.turnsQueue = new LinkedBlockingQueue<>(8);
     this.playerHandler = new PlayerHandler(this);
     this.enemyHandler = new EnemyHandler(this);
   }
@@ -82,18 +83,29 @@ public class GameController {
   }
 
   /**
-   * Does something whenever a character ends its turn.
+   * Does something whenever a character ends its turn. If there are characters waiting,
+   * the controller will start the turn of the next character.
    */
   public void onTurnEnded() {
     turnsQueue.poll();
-    // The controller should do something here.
+    if (!turnsQueue.isEmpty()) {
+      turnsQueue.peek().startTurn();
+    }
   }
 
   /**
-   * Does something whenever a character starts its turn.
+   * Does something whenever a character starts its turn. Enemies will try to attack a party member.
    */
   public void onTurnStarted(final boolean playerTurn) {
-    // The controller should do something here.
+    ICharacter character = turnsQueue.peek();
+    assert character != null;
+
+    if (playerTurn) {
+      // This will be replaced by the user's interaction with the controller.
+      performAttack(character, character);
+    } else {
+      enemyAttack(character, getUser().getParty());
+    }
   }
 
   /**
@@ -199,6 +211,23 @@ public class GameController {
    */
   public void createStaff(final String name, final int attack, final int weight, final int magicAttack) {
     finishWeaponCreation(new Staff(name, attack, weight, magicAttack));
+  }
+
+  /**
+   * Causes an enemy to try to attack a user's player character.
+   */
+  private void enemyAttack(@NotNull ICharacter enemy, @NotNull List<IPlayerCharacter> party) {
+    Random rng = new Random();
+    int partySize = party.size();
+    int idx = rng.nextInt(partySize);
+
+    for (int i = 0; i < partySize; i++) {
+      ICharacter player = party.get((idx + i) % partySize);
+      if (player.isAlive()) {
+        performAttack(enemy, player);
+        break;
+      }
+    }
   }
 
   private void finishPlayerCreation(IPlayerCharacter character) {
