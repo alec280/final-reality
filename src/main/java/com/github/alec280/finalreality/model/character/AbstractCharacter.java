@@ -41,9 +41,6 @@ public abstract class AbstractCharacter implements ICharacter {
   private void addToQueue() {
     turnsQueue.add(this);
     scheduledExecutor.shutdown();
-    if (turnsQueue.size() == 1) {
-      propertyChange.firePropertyChange("turn", false, true);
-    }
   }
 
   @Override
@@ -55,6 +52,11 @@ public abstract class AbstractCharacter implements ICharacter {
   public void waitTurn() {
     scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
     scheduledExecutor.schedule(this::addToQueue, getWeight() / 10, TimeUnit.SECONDS);
+  }
+
+  @Override
+  public void startTurn() {
+    propertyChange.firePropertyChange("turn", false, true);
   }
 
   @Override

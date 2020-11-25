@@ -20,6 +20,11 @@ public interface ICharacter {
   void waitTurn();
 
   /**
+   * Starts this character's turn.
+   */
+  void startTurn();
+
+  /**
    * Returns this character's name.
    */
   String getName();

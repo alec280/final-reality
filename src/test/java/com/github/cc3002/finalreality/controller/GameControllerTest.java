@@ -107,6 +107,41 @@ public class GameControllerTest {
     assertFalse(enemies.get(0).isAlive());
   }
 
+  /**
+   * Checks that the characters are added and removed from the queue appropriately.
+   */
+  @Test
+  void queueTest() throws InterruptedException {
+    final BlockingQueue<ICharacter> turnsQueue = controller.getTurnsQueue();
+    final List<IPlayerCharacter> party = controller.getUser().getParty();
+    final List<Enemy> enemies = controller.getEnemies();
+
+    assertTrue(turnsQueue.isEmpty());
+
+    for (int i = 0; i < 4; i++) {
+      controller.createKnife("Knife", TEST_VALUE, TEST_VALUE);
+      controller.createThief(Integer.toString(i), TEST_VALUE, TEST_VALUE);
+      controller.createEnemy(Integer.toString(i), TEST_VALUE, TEST_VALUE, TEST_VALUE, TEST_VALUE);
+      controller.equipWeapon(new Knife("Knife", TEST_VALUE, TEST_VALUE), party.get(i));
+      party.get(i).waitTurn();
+      enemies.get(i).waitTurn();
+    }
+
+    Thread.sleep(2000);
+    assertEquals(8, turnsQueue.size());
+    assertNotNull(turnsQueue.peek());
+    turnsQueue.peek().startTurn();
+    assertEquals(0, turnsQueue.size());
+
+    for (var player : party) {
+      assertTrue(player.getHealth() < player.getMaxHealth());
+    }
+    for (var enemy : enemies) {
+      assertEquals(enemy.getMaxHealth(), enemy.getHealth());
+    }
+
+  }
+
   private void createPlayerCharacters(final List<IPlayerCharacter> party, BlockingQueue<ICharacter> turnsQueue) {
     assertTrue(party.isEmpty());
 
