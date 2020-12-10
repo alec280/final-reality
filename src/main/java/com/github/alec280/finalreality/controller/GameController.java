@@ -1,6 +1,12 @@
 package com.github.alec280.finalreality.controller;
 
 
+import com.github.alec280.finalreality.controller.handlers.EnemyHandler;
+import com.github.alec280.finalreality.controller.handlers.PlayerHandler;
+import com.github.alec280.finalreality.controller.phases.IPhase;
+import com.github.alec280.finalreality.controller.phases.IdlePhase;
+import com.github.alec280.finalreality.controller.phases.InvalidActionException;
+import com.github.alec280.finalreality.controller.phases.InvalidTransitionException;
 import com.github.alec280.finalreality.model.character.Enemy;
 import com.github.alec280.finalreality.model.character.ICharacter;
 import com.github.alec280.finalreality.model.character.player.*;
@@ -25,6 +31,8 @@ public class GameController {
   private final BlockingQueue<ICharacter> turnsQueue;
   private final PlayerHandler playerHandler;
   private final EnemyHandler enemyHandler;
+  private boolean playerTurn;
+  private IPhase phase;
 
   /**
    * Creates a new GameController.
@@ -35,6 +43,8 @@ public class GameController {
     this.turnsQueue = new LinkedBlockingQueue<>(8);
     this.playerHandler = new PlayerHandler(this);
     this.enemyHandler = new EnemyHandler(this);
+    this.playerTurn = false;
+    this.setPhase(new IdlePhase());
   }
 
   /**
@@ -56,6 +66,20 @@ public class GameController {
    */
   public List<Enemy> getEnemies() {
     return enemies;
+  }
+
+  /**
+   * Returns the current phase.
+   */
+  public IPhase getPhase() {
+    return phase;
+  }
+
+  /**
+   * Returns true if the current character is a player character.
+   */
+  public boolean isPlayerTurn() {
+    return playerTurn;
   }
 
   /**
@@ -83,28 +107,35 @@ public class GameController {
   }
 
   /**
-   * Does something whenever a character ends its turn. If there are characters waiting,
-   * the controller will start the turn of the next character.
+   * Does something whenever a character ends its turn. The character that ended its turn awaits its next turn.
+   * Tries to start the turn of the next character, if there is one.
    */
   public void onTurnEnded() {
-    turnsQueue.poll();
+    ICharacter character = turnsQueue.poll();
+    if (character != null) {
+      character.waitTurn();
+    } else {
+      return;
+    }
+    try {
+      phase.toIdlePhase();
+    } catch (InvalidTransitionException e) {
+      e.printStackTrace();
+    }
     if (!turnsQueue.isEmpty()) {
       turnsQueue.peek().startTurn();
     }
   }
 
   /**
-   * Does something whenever a character starts its turn. Enemies will try to attack a party member.
+   * Does something whenever a character starts its turn.
    */
   public void onTurnStarted(final boolean playerTurn) {
-    ICharacter character = turnsQueue.peek();
-    assert character != null;
-
-    if (playerTurn) {
-      // This will be replaced by the user's interaction with the controller.
-      performAttack(character, character);
-    } else {
-      enemyAttack(character, getUser().getParty());
+    this.playerTurn = playerTurn;
+    try {
+      phase.toSelectingAttackTargetPhase();
+    } catch (InvalidTransitionException e) {
+      e.printStackTrace();
     }
   }
 
@@ -216,7 +247,7 @@ public class GameController {
   /**
    * Causes an enemy to try to attack a user's player character.
    */
-  private void enemyAttack(@NotNull ICharacter enemy, @NotNull List<IPlayerCharacter> party) {
+  public void tryToEnemyAttack(@NotNull ICharacter enemy, @NotNull List<IPlayerCharacter> party) {
     Random rng = new Random();
     int partySize = party.size();
     int idx = rng.nextInt(partySize);
@@ -224,9 +255,50 @@ public class GameController {
     for (int i = 0; i < partySize; i++) {
       ICharacter player = party.get((idx + i) % partySize);
       if (player.isAlive()) {
-        performAttack(enemy, player);
+        tryToPerformAttack(enemy, player);
         break;
       }
+    }
+  }
+
+  /**
+   * Sets the given phase of the game flow as the current one.
+   */
+  public void setPhase(final @NotNull IPhase phase) {
+    this.phase = phase;
+    phase.setController(this);
+  }
+
+  /**
+   * Tries to open the inventory, the current phase must allow it.
+   */
+  public void toggleInventory() {
+    try {
+      phase.toggleInventory();
+    } catch (InvalidActionException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Tries to equip a weapon, the current phase must allow it.
+   */
+  public void tryToEquipWeapon(@NotNull IWeapon weapon, @NotNull IPlayerCharacter player) {
+    try {
+      phase.equipWeapon(weapon, player);
+    } catch (InvalidActionException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Tries to perform an attack, the current phase must allow it.
+   */
+  public void tryToPerformAttack(@NotNull ICharacter aggressor,@NotNull ICharacter defender) {
+    try {
+      phase.performAttack(aggressor, defender);
+    } catch (InvalidActionException e) {
+      e.printStackTrace();
     }
   }
 
@@ -238,5 +310,4 @@ public class GameController {
   private void finishWeaponCreation(IWeapon weapon) {
     user.addWeapon(weapon);
   }
-
 }

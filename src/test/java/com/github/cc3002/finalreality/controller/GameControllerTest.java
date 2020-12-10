@@ -1,6 +1,8 @@
 package com.github.cc3002.finalreality.controller;
 
 import com.github.alec280.finalreality.controller.GameController;
+import com.github.alec280.finalreality.controller.phases.IdlePhase;
+import com.github.alec280.finalreality.controller.phases.SelectingAttackTargetPhase;
 import com.github.alec280.finalreality.model.character.Enemy;
 import com.github.alec280.finalreality.model.character.ICharacter;
 import com.github.alec280.finalreality.model.character.player.*;
@@ -117,6 +119,7 @@ public class GameControllerTest {
     final List<Enemy> enemies = controller.getEnemies();
 
     assertTrue(turnsQueue.isEmpty());
+    assertEquals(new IdlePhase(), controller.getPhase());
 
     for (int i = 0; i < 4; i++) {
       controller.createKnife("Knife", TEST_VALUE, TEST_VALUE);
@@ -131,7 +134,16 @@ public class GameControllerTest {
     assertEquals(8, turnsQueue.size());
     assertNotNull(turnsQueue.peek());
     turnsQueue.peek().startTurn();
-    assertEquals(0, turnsQueue.size());
+    while (!turnsQueue.isEmpty()) {
+      assertEquals(new SelectingAttackTargetPhase(), controller.getPhase());
+      ICharacter character = turnsQueue.peek();
+      assertNotNull(character);
+      if (controller.isPlayerTurn()) {
+        controller.tryToPerformAttack(character, character);
+      } else {
+        controller.tryToEnemyAttack(character, party);
+      }
+    }
 
     for (var player : party) {
       assertTrue(player.getHealth() < player.getMaxHealth());
@@ -139,7 +151,6 @@ public class GameControllerTest {
     for (var enemy : enemies) {
       assertEquals(enemy.getMaxHealth(), enemy.getHealth());
     }
-
   }
 
   private void createPlayerCharacters(final List<IPlayerCharacter> party, BlockingQueue<ICharacter> turnsQueue) {
