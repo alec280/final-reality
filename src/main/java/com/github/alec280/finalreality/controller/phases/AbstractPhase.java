@@ -16,9 +16,20 @@ public abstract class AbstractPhase implements IPhase {
   protected GameController controller;
   protected boolean canAttack = false;
   protected boolean canEquip = false;
+  protected boolean canContinue = true;
 
   protected void changePhase(IPhase phase) {
     controller.setPhase(phase);
+  }
+
+  @Override
+  public boolean canEquip() {
+    return canEquip;
+  }
+
+  @Override
+  public boolean canContinue() {
+    return canContinue;
   }
 
   @Override
@@ -42,6 +53,12 @@ public abstract class AbstractPhase implements IPhase {
   public void toIdlePhase() throws InvalidTransitionException {
     throw new InvalidTransitionException(
         "Can't change from " + this.toString() + " to Idle Phase");
+  }
+
+  @Override
+  public void toEndPhase() throws InvalidTransitionException {
+    throw new InvalidTransitionException(
+        "Can't change from " + this.toString() + " to End Phase");
   }
 
   @Override

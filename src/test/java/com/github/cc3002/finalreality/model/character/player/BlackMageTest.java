@@ -34,6 +34,10 @@ public class BlackMageTest extends AbstractMageTest {
     checkConstruction(expectedBlackMage, testBlackMage,
       new BlackMage("Soci", HEALTH, DEFENSE, MANA, turns),
       testThief);
+
+    assertEquals("black_mage", expectedBlackMage.getSpriteName());
+    assertEquals(MANA, expectedBlackMage.getMana());
+    assertEquals(MANA, expectedBlackMage.getMaxMana());
   }
 
   @Override

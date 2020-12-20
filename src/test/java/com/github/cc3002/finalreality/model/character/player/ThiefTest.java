@@ -29,11 +29,13 @@ public class ThiefTest extends AbstractPlayerTest {
    */
   @Test
   void constructorTest() {
-    var expectedEngineer = new Thief(THIEF_NAME, HEALTH, DEFENSE, turns);
+    var expectedThief = new Thief(THIEF_NAME, HEALTH, DEFENSE, turns);
 
-    checkConstruction(expectedEngineer, testThief,
+    checkConstruction(expectedThief, testThief,
       new Thief("Citrus", HEALTH, DEFENSE, turns),
       testKnight);
+
+    assertEquals("thief", expectedThief.getSpriteName());
   }
 
   @Override

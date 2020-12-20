@@ -48,7 +48,18 @@ public class User {
       inventory.remove(weapon);
     }
     inventory.replace(weapon, old_value - 1);
+  }
 
+  /**
+   * Returns the size of the inventory, counting every instance of every weapon in it.
+   */
+  public int getInventorySize() {
+    int count = 0;
+    var keySet = inventory.keySet();
+    for (IWeapon weapon : keySet) {
+      count += inventory.get(weapon);
+    }
+    return count;
   }
 
   /**

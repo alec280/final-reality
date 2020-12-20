@@ -52,4 +52,9 @@ public abstract class AbstractPlayer extends AbstractCharacter implements IPlaye
     return getEquippedWeapon().getWeight();
   }
 
+  @Override
+  public String getSpriteName() {
+    return "cuboid";
+  }
+
 }

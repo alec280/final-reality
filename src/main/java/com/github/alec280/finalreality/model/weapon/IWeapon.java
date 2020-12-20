@@ -13,6 +13,11 @@ public interface IWeapon {
   String getName();
 
   /**
+   * Return the name of the sprite that represents this weapon.
+   */
+  String getSpriteName();
+
+  /**
    * Returns the attack of this weapon.
    */
   int getAttack();

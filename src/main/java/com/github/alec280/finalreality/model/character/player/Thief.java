@@ -38,6 +38,11 @@ public class Thief extends AbstractPlayer {
   }
 
   @Override
+  public String getSpriteName() {
+    return "thief";
+  }
+
+  @Override
   public boolean equals(final Object o) {
     if (this == o) {
       return true;

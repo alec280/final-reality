@@ -26,4 +26,9 @@ public interface IPlayerCharacter extends ICharacter {
      * Return this player's equipped weapon.
      */
     IWeapon getEquippedWeapon();
+
+    /**
+     * Return this player's sprite name.
+     */
+    String getSpriteName();
 }

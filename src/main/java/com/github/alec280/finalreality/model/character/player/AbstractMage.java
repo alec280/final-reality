@@ -25,14 +25,14 @@ public abstract class AbstractMage extends AbstractPlayer {
   /**
    * Returns this wizard's maximum mana.
    */
-  private int getMaxMana() {
+  public int getMaxMana() {
     return maxMana;
   }
 
   /**
    * Returns this wizard's current mana.
    */
-  private int getMana() {
+  public int getMana() {
     return mana;
   }
 

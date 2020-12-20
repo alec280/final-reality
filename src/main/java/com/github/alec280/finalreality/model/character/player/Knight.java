@@ -38,6 +38,11 @@ public class Knight extends AbstractPlayer {
   }
 
   @Override
+  public String getSpriteName() {
+    return "knight";
+  }
+
+  @Override
   public boolean equals(final Object o) {
     if (this == o) {
       return true;

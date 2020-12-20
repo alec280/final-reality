@@ -24,6 +24,11 @@ public class Knife extends AbstractWeapon {
   }
 
   @Override
+  public String getSpriteName() {
+    return "knife";
+  }
+
+  @Override
   public boolean canBeEquippedToBlackMage() {
     return true;
   }

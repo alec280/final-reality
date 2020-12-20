@@ -24,6 +24,11 @@ public class Sword extends AbstractWeapon {
   }
 
   @Override
+  public String getSpriteName() {
+    return "sword";
+  }
+
+  @Override
   public boolean canBeEquippedToKnight() {
     return true;
   }

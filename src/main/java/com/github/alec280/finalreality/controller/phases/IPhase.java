@@ -14,6 +14,16 @@ import org.jetbrains.annotations.NotNull;
 public interface IPhase {
 
   /**
+   * Returns true if this phase allows the equipment of weapons.
+   */
+  boolean canEquip();
+
+  /**
+   * Returns true if this phase allows a continuation of the game.
+   */
+  boolean canContinue();
+
+  /**
    * Sets the controller of this phase.
    */
   void setController(final @NotNull GameController controller);
@@ -32,6 +42,11 @@ public interface IPhase {
    * Changes the current phase to the Idle Phase.
    */
   void toIdlePhase() throws InvalidTransitionException;
+
+  /**
+   * Changes the current phase to the End Phase.
+   */
+  void toEndPhase() throws InvalidTransitionException;
 
   /**
    * Performs and attack between characters.

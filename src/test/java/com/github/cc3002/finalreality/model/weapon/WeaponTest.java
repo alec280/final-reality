@@ -60,6 +60,12 @@ class WeaponTest {
     assertEquals(SPEED, testBow.getWeight());
     assertEquals(KNIFE_NAME, testKnife.getName());
 
+    assertEquals("axe", testAxe.getSpriteName());
+    assertEquals("bow", testBow.getSpriteName());
+    assertEquals("knife", testKnife.getSpriteName());
+    assertEquals("staff", testStaff.getSpriteName());
+    assertEquals("sword", testSword.getSpriteName());
+
     checkConstruction(expectedAxe, testAxe,
       new Axe("Axe", DAMAGE, SPEED),
       testStaff);

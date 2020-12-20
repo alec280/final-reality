@@ -36,20 +36,26 @@ public class PhaseTest {
     checkConstruction(new IdlePhase(), new IdlePhase(), new ChangingWeaponPhase());
     checkConstruction(new ChangingWeaponPhase(), new ChangingWeaponPhase(), new SelectingAttackTargetPhase());
     checkConstruction(new SelectingAttackTargetPhase(), new SelectingAttackTargetPhase(), new IdlePhase());
+    checkConstruction(new StartPhase(), new StartPhase(), new EndPhase());
+    checkConstruction(new EndPhase(), new EndPhase(), new StartPhase());
+
+    assertEquals(new StartPhase(), controller.getPhase());
+
+    assertThrows(InvalidTransitionException.class, controller.getPhase()::toChangingWeaponPhase);
+    assertThrows(InvalidTransitionException.class, controller.getPhase()::toSelectingAttackTargetPhase);
+    assertThrows(InvalidActionException.class, controller.getPhase()::toggleInventory);
+
+    controller.createThief("Morgana", TEST_VALUE, TEST_VALUE);
+    controller.createAxe("Axe", TEST_VALUE, TEST_VALUE);
+    controller.startWait();
+
+    Thread.sleep(2000);
 
     assertEquals(new IdlePhase(), controller.getPhase());
 
     assertThrows(InvalidTransitionException.class, controller.getPhase()::toChangingWeaponPhase);
     assertThrows(InvalidTransitionException.class, controller.getPhase()::toIdlePhase);
     assertThrows(InvalidActionException.class, controller.getPhase()::toggleInventory);
-
-    controller.createThief("Morgana", TEST_VALUE, TEST_VALUE);
-    controller.createAxe("Axe", TEST_VALUE, TEST_VALUE);
-    party.get(0).waitTurn();
-
-    Thread.sleep(2000);
-
-    assertEquals(new IdlePhase(), controller.getPhase());
 
     assertThrows(InvalidActionException.class, () -> controller.getPhase().equipWeapon(testAxe, party.get(0)));
     assertThrows(InvalidActionException.class, () -> controller.getPhase().performAttack(party.get(0), party.get(0)));

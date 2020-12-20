@@ -24,6 +24,11 @@ public class Bow extends AbstractWeapon {
   }
 
   @Override
+  public String getSpriteName() {
+    return "bow";
+  }
+
+  @Override
   public boolean canBeEquippedToEngineer() {
     return true;
   }
