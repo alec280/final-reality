@@ -39,6 +39,11 @@ public class WhiteMage extends AbstractMage {
   }
 
   @Override
+  public String getSpriteName() {
+    return "white_mage";
+  }
+
+  @Override
   public boolean equals(final Object o) {
     if (this == o) {
       return true;

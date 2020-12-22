@@ -24,6 +24,11 @@ public class Axe extends AbstractWeapon {
   }
 
   @Override
+  public String getSpriteName() {
+    return "axe";
+  }
+
+  @Override
   public boolean canBeEquippedToEngineer() {
     return true;
   }

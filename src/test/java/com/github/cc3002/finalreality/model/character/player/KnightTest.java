@@ -35,6 +35,8 @@ public class KnightTest extends AbstractPlayerTest {
     checkConstruction(expectedKnight, testKnight,
       new Knight("Alfonso", HEALTH, DEFENSE, turns),
       testThief);
+
+    assertEquals("knight", expectedKnight.getSpriteName());
   }
 
   @Override

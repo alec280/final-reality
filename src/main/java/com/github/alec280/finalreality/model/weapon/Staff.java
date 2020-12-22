@@ -29,6 +29,11 @@ public class Staff extends AbstractWeapon {
   }
 
   @Override
+  public String getSpriteName() {
+    return "staff";
+  }
+
+  @Override
   public boolean canBeEquippedToBlackMage() {
     return true;
   }

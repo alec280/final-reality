@@ -23,6 +23,11 @@ public abstract class AbstractWeapon implements IWeapon {
   }
 
   @Override
+  public String getSpriteName() {
+    return "cuboid";
+  }
+
+  @Override
   public int getAttack() {
     return attack;
   }

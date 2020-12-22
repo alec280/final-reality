@@ -34,6 +34,10 @@ public class WhiteMageTest extends AbstractMageTest {
     checkConstruction(expectedWhiteMage, testWhiteMage,
       new WhiteMage("Iki", HEALTH, DEFENSE, MANA, turns),
       testThief);
+
+    assertEquals("white_mage", expectedWhiteMage.getSpriteName());
+    assertEquals(MANA, expectedWhiteMage.getMana());
+    assertEquals(MANA, expectedWhiteMage.getMaxMana());
   }
 
   @Override

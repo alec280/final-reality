@@ -35,6 +35,8 @@ public class EngineerTest extends AbstractPlayerTest {
     checkConstruction(expectedEngineer, testEngineer,
       new Engineer("Sit", HEALTH, DEFENSE, turns),
       testThief);
+
+    assertEquals("engineer", expectedEngineer.getSpriteName());
   }
 
   @Override

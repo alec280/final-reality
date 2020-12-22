@@ -24,16 +24,19 @@ public class EnemyHandler implements PropertyChangeListener {
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    if (evt.getPropertyName().equals("health")) {
+    final String property = evt.getPropertyName();
+    if (property .equals("health")) {
       if ((int) evt.getNewValue() == 0) {
         controller.onEnemyDeath();
       }
-    } else if (evt.getPropertyName().equals("turn")) {
+    } else if (property.equals("turn")) {
       if ((boolean) evt.getNewValue()) {
         controller.onTurnStarted(false);
       } else {
         controller.onTurnEnded();
       }
+    } else if (property.equals("ready")) {
+      controller.tryToStartTurn();
     }
   }
 }

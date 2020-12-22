@@ -24,16 +24,19 @@ public class PlayerHandler implements PropertyChangeListener {
 
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    if (evt.getPropertyName().equals("health")) {
+    final String property = evt.getPropertyName();
+    if (property.equals("health")) {
       if ((int) evt.getNewValue() == 0) {
         controller.onPlayerDeath();
       }
-    } else if (evt.getPropertyName().equals("turn")) {
+    } else if (property.equals("turn")) {
       if ((boolean) evt.getNewValue()) {
         controller.onTurnStarted(true);
       } else {
         controller.onTurnEnded();
       }
+    } else if (property.equals("ready")) {
+      controller.tryToStartTurn();
     }
   }
 }

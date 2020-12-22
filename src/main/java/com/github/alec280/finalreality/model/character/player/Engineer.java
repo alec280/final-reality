@@ -37,6 +37,11 @@ public class Engineer extends AbstractPlayer {
   }
 
   @Override
+  public String getSpriteName() {
+    return "engineer";
+  }
+
+  @Override
   public boolean equals(final Object o) {
     if (this == o) {
       return true;

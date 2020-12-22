@@ -26,6 +26,11 @@ public class SelectingAttackTargetPhase extends AbstractPhase {
   }
 
   @Override
+  public void toEndPhase() {
+    changePhase(new EndPhase());
+  }
+
+  @Override
   public void toChangingWeaponPhase() {
     changePhase(new ChangingWeaponPhase());
   }
